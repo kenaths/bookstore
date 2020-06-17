@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('build/global.css') }}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light mb-4">
+            <div class="container">
+                <a class="navbar-brand" href="{{ path('home') }}">Home</a>
+            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('cart') }}">Cart {{ (app.session.get('total') - app.session.get('discount') ) | number_format(2,'.',',') }}</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

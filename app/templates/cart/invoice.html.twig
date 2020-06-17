@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoice!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Book</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.category_name }}</td>
+                    <td>{{ item.price |number_format(2,'.',',') }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>{{ (item.price * item.qty) |number_format(2,'.',',') }} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <p>Total: {{ total | number_format(2,'.',',') }}</p>
+        <p>Discount: {{ discount | number_format(2,'.',',') }}</p>
+        <p>Coupon: {{ coupon }}</p>
+        <p>Total after discount: {{ (total - discount) | number_format(2,'.',',') }}</p>
+    </div>
+
+{% endblock %}
